@@ -4,5 +4,4 @@ type Reposityory struct {
 	RootDir string
 }
 
-type 
-
+type Commit struct
