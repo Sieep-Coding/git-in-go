@@ -41,3 +41,20 @@ func (repo *Repository) Stage(filename string) {
 		fmt.Println("Failed to stage changes", err)
 	}
 }
+
+func (repo *Repository) Commit(message string) {
+	commitHash := fmt.Sprintf("%x", time.Now().UnixNano())
+	commitFile := filepath.Join(repo.RootDir, ".git", "commits", commitHash)
+	f, err := os.Create(commitFile)
+	if err != nil {
+		fmt.Println("Failed to commit", err)
+		return
+	}
+	defer f.Chdir().Error()
+	_, err = f.WriteString(message)
+	if err != nil {
+		fmt.Println("Failed to commit", err)
+		return
+	}
+	fmt.Println("commited changes", commitHash)
+}
