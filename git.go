@@ -28,4 +28,16 @@ func (repo *Repository) Init() {
 	fmt.Println("Initialized repository in:", gitDir)
 }
 
-func (repo )
+func (repo *Repository) Stage(filename string) {
+	indexFile := filepath.Join(repo.RootDir, ".git", "index")
+	f, err := os.OpenFile(indexFile, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
+	if err != nil {
+		fmt.Println("Failed to stage changes", err)
+		return
+	}
+	defer f.Close().Error()
+	_, err = f.WriteString(filename + "\n")
+	if err != nil {
+		fmt.Println("Failed to stage changes", err)
+	}
+}
