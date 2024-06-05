@@ -30,7 +30,7 @@ func (repo *Repository) Init() {
 
 func (repo *Repository) Stage(filename string) {
 	indexFile := filepath.Join(repo.RootDir, ".git", "index")
-	f, err := os.OpenFile(indexFile, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
+	f, err := os.OpenFile(indexFile, os.O_APPEND|os.O_WRONLY, 0644)
 	if err != nil {
 		fmt.Println("Failed to stage changes", err)
 		return
@@ -60,7 +60,7 @@ func (repo *Repository) Commit(message string) {
 }
 
 func main() {
-	repo := Repository{RootDir: "."}
+	repo := &Repository{RootDir: "."}
 	repo.Init()
 	repo.Stage("example.txt")
 	repo.Commit("Initial Commit")
