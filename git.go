@@ -58,3 +58,11 @@ func (repo *Repository) Commit(message string) {
 	}
 	fmt.Println("commited changes", commitHash)
 }
+
+func main() {
+	repo := Repository{RootDir: "."}
+	repo.Init()
+	repo.Stage("example.txt")
+	repo.Commit("Initial Commit")
+	fmt.Println("Repository initialized and commit created")
+}
